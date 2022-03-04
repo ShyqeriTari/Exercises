@@ -2,11 +2,10 @@ import { join, extname } from "path"
 import fs from "fs-extra"
 import { v4 as uuid } from "uuid"
 
-export const DATA_FOLDER_PATH = join(process.cwd(), "data")
 
 export const PUBLIC_FOLDER_PATH = join(process.cwd(), "public")
 
-const saveFile = async (file, uniqueName = false) => {
+export const saveFile = async (file, uniqueName = false) => {
 
     try {
         const fileName = uniqueName ? `${uuid()}${extname(file.originalname )}` : file.originalname
