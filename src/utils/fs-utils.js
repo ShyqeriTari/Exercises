@@ -11,7 +11,8 @@ export const saveFile = async (file, uniqueName = false) => {
         const fileName = uniqueName ? `${uuid()}${extname(file.originalname )}` : file.originalname
         const filePath = join(PUBLIC_FOLDER_PATH, fileName)
         await fs.writeFile(filePath, file.buffer)
-        return `http://localhost:3001/${fileName}`
+        const url = `http://localhost:3001/${fileName}`
+        return {url, fileName}
     } catch (error) {
     console.log(error)
     throw error
