@@ -1,6 +1,7 @@
 import express from "express"
-import { PUBLIC_FOLDER_PATH } from "./utils/fs-utils"
-
+import { PUBLIC_FOLDER_PATH } from "./utils/fs-utils.js"
+import { errorHandler } from "./utils/errorHandler.js"
+import filesRouter from "./service/files/route.js"
 
 const port = 3001
 
@@ -10,8 +11,12 @@ server.use(express.static(PUBLIC_FOLDER_PATH))
 
 server.use(express.json())
 
-server.listen(port, () => {console.log(`server is listening on port ${port}`)})
+server.use("/files", filesRouter)
 
-server.on("error", () => {
-    console.log(`server crushed: ${error}`)
+server.use(errorHandler)
+
+server.listen(port, () => {console.log(`✅ server is listening on port ${port}`)})
+
+server.on("error", (error) => {
+    console.log(`🔴 server crushed: ${error}`)
 })
